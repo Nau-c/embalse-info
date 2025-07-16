@@ -1,0 +1,23 @@
+{
+  "name": "embalse-info",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "integrations/*",
+    "functions/*",
+    "front"
+  ],
+  "packageManager": "npm@10.0.0",
+  "scripts": {
+    "scripts": "tsx ./run-scripts",
+    "start": "npm run scripts -- start"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.4.9",
+    "prompts": "^2.4.2",
+    "tsx": "^4.20.3",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  }
+}
