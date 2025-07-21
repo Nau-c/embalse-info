@@ -1,9 +1,6 @@
-export interface Embalse {
-  id: string;
+export interface EmbalseUpdateSAIHEntity {
+  id: number;
   nombre: string;
-  provincia: string;
-  capacidad: number; // in cubic meters
-  nivelActual: number; // in cubic meters
-  fechaUltimoNivel: Date;
-  porcentajeLlenado: number; // percentage of capacity filled
+  aguaActualSAIH: number;
+  fechaMedidaSAIH: string;
 }

@@ -1,24 +1,21 @@
-import type { Embalse } from "db-model";
+import type { EmbalseUpdateSAIHEntity } from "db-model";
 
-export const getEstadoCuencaMediteranea = async (): Promise<Embalse[]> => {
+export const getEstadoCuencaMediteranea = async (): Promise<
+  EmbalseUpdateSAIHEntity[]
+> => {
   return [
     {
-      id: "1",
-      nombre: "Embalse de Iznájar",
-      provincia: "Córdoba",
-      capacidad: 981000000,
-      nivelActual: 750000000,
-      fechaUltimoNivel: new Date("2023-10-01"),
-      porcentajeLlenado: 76.5,
+      id: 1,
+      nombre: "Embalse de Buendía",
+      aguaActualSAIH: 1234567,
+      fechaMedidaSAIH: "2023-10-01T12:00:00Z",
     },
     {
-      id: "2",
-      nombre: "Embalse de El Chorro",
-      provincia: "Málaga",
-      capacidad: 229000000,
-      nivelActual: 180000000,
-      fechaUltimoNivel: new Date("2023-10-01"),
-      porcentajeLlenado: 78.6,
+      id: 2,
+      nombre: "Embalse de Bolarque",
+      aguaActualSAIH: 2345678,
+      fechaMedidaSAIH: "2023-10-01T12:00:00Z",
     },
+    // Add more embalses as needed
   ];
 };
