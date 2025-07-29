@@ -89,13 +89,13 @@ export function isReservoirDataRow($row: cheerio.Cheerio<AnyNode>): boolean {
  */
 export function extractProvinceTables(
   $: cheerio.CheerioAPI
-): Array<{ province: string; rows: cheerio.Cheerio<Element>[] }> {
+): Array<{ province: string; rows: cheerio.Cheerio<AnyNode>[] }> {
   const provinceTables: Array<{
     province: string;
-    rows: cheerio.Cheerio<Element>[];
+    rows: cheerio.Cheerio<AnyNode>[];
   }> = [];
   let currentProvince = "";
-  let currentRows: cheerio.Cheerio<Element>[] = [];
+  let currentRows: cheerio.Cheerio<AnyNode>[] = [];
 
   $("table tbody tr").each((_: any, row: any) => {
     const $row = $(row);
