@@ -1,4 +1,6 @@
 import { EmbalsesAndalucia } from '@/api';
+import * as cheerio from 'cheerio';
+import { AnyNode } from 'domhandler';
 
 /**
  * Extracts the current date from the page.
@@ -6,7 +8,7 @@ import { EmbalsesAndalucia } from '@/api';
  * @returns The current date as a string
  */
 
-export function extractCurrentDate($: any): string {
+export function extractCurrentDate($: cheerio.CheerioAPI): string {
   const dateElement = $('div.col-sm-6 > b');
   const regEx = /Datos actualizados a: /;
   const trimmedText = dateElement.text().replace(regEx, '').trim();
@@ -34,7 +36,10 @@ export function parseEuropeanNumber(value: string): number {
  * @param $ - Cheerio instance to process elements
  * @returns Array of strings with the text content of each cell
  */
-export function extractTableCellsText($row: any, $: any): string[] {
+export function extractTableCellsText(
+  $row: cheerio.Cheerio<AnyNode>,
+  $: cheerio.CheerioAPI
+): string[] {
   return $row
     .find('td')
     .map((_: any, el: any) => $(el).text().trim())
@@ -46,7 +51,9 @@ export function extractTableCellsText($row: any, $: any): string[] {
  * @param $row - Cheerio element representing a table row
  * @returns The province name or null if it's not a header row
  */
-export function extractProvinceFromRow($row: any): string | null {
+export function extractProvinceFromRow(
+  $row: cheerio.Cheerio<AnyNode>
+): string | null {
   const provinceHeader = $row.find('th[colspan="2"]');
   const detectedProvince = provinceHeader.text().trim();
 
@@ -70,7 +77,7 @@ export function extractProvinceFromRow($row: any): string | null {
  * @param $row - Cheerio element representing a table row
  * @returns true if it's a reservoir data row
  */
-export function isReservoirDataRow($row: any): boolean {
+export function isReservoirDataRow($row: cheerio.Cheerio<AnyNode>): boolean {
   const cells = $row.find('td');
   return cells.length >= 10; // A reservoir row has at least 10 columns
 }
@@ -81,11 +88,14 @@ export function isReservoirDataRow($row: any): boolean {
  * @returns Array of objects with province and its data rows
  */
 export function extractProvinceTables(
-  $: any
-): Array<{ province: string; rows: any[] }> {
-  const provinceTables: Array<{ province: string; rows: any[] }> = [];
+  $: cheerio.CheerioAPI
+): Array<{ province: string; rows: cheerio.Cheerio<Element>[] }> {
+  const provinceTables: Array<{
+    province: string;
+    rows: cheerio.Cheerio<Element>[];
+  }> = [];
   let currentProvince = '';
-  let currentRows: any[] = [];
+  let currentRows: cheerio.Cheerio<Element>[] = [];
 
   $('table tbody tr').each((_: any, row: any) => {
     const $row = $(row);
@@ -132,9 +142,9 @@ export function extractProvinceTables(
  * @returns Array of processed reservoirs
  */
 export function reservoirInfoFromTable(
-  rows: any[],
+  rows: cheerio.Cheerio<AnyNode>[],
   province: string,
-  $: any
+  $: cheerio.CheerioAPI
 ): EmbalsesAndalucia[] {
   const reservoirs: EmbalsesAndalucia[] = [];
 
@@ -156,8 +166,8 @@ export function reservoirInfoFromTable(
  * @returns The parsed reservoir or null if it couldn't be processed
  */
 export function processReservoirRow(
-  $row: any,
-  $: any,
+  $row: cheerio.Cheerio<AnyNode>[],
+  $: cheerio.CheerioAPI,
   provincia: string
 ): EmbalsesAndalucia | null {
   const cols = extractTableCellsText($row, $);

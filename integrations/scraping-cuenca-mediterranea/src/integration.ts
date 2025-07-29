@@ -16,7 +16,7 @@ export async function scrapeCuencaMediterranea(
   url: string
 ): Promise<EmbalseUpdateSAIHEntity[]> {
   const html = await getCuencaPageHTMLContent(url);
-  const $ = cheerio.load(html);
+  const $: cheerio.CheerioAPI = cheerio.load(html);
 
   // Extract tables organized by province
   const provinceTables = extractProvinceTables($);
