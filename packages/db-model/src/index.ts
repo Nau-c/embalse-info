@@ -1,6 +1,3 @@
-export interface EmbalseUpdateSAIHEntity {
-  id: number;
-  nombre: string;
-  aguaActualSAIH: number;
-  fechaMedidaSAIH: string;
-}
+// Barrel for db-model package
+
+export * from './model';
