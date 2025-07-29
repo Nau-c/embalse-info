@@ -1,6 +1,6 @@
-import { EmbalsesAndalucia } from '@/api';
-import * as cheerio from 'cheerio';
-import { AnyNode } from 'domhandler';
+import { EmbalsesAndalucia } from "@/api";
+import * as cheerio from "cheerio";
+import { AnyNode } from "domhandler";
 
 /**
  * Extracts the current date from the page.
@@ -9,10 +9,10 @@ import { AnyNode } from 'domhandler';
  */
 
 export function extractCurrentDate($: cheerio.CheerioAPI): string {
-  const dateElement = $('div.col-sm-6 > b');
+  const dateElement = $("div.col-sm-6 > b");
   const regEx = /Datos actualizados a: /;
-  const trimmedText = dateElement.text().replace(regEx, '').trim();
-  return trimmedText.split(' ')[0].replace(/-/g, '/'); // Return only the date part with slashes
+  const trimmedText = dateElement.text().replace(regEx, "").trim();
+  return trimmedText.split(" ")[0].replace(/-/g, "/"); // Return only the date part with slashes
 }
 
 /**
@@ -21,12 +21,12 @@ export function extractCurrentDate($: cheerio.CheerioAPI): string {
  * @returns The parsed number or NaN if invalid
  */
 export function parseEuropeanNumber(value: string): number {
-  if (!value || value.trim() === '' || value === '*' || value === 'n/d') {
+  if (!value || value.trim() === "" || value === "*" || value === "n/d") {
     return NaN;
   }
 
   // Replace comma with dot for decimal separator
-  const normalizedValue = value.replace(',', '.');
+  const normalizedValue = value.replace(",", ".");
   return parseFloat(normalizedValue);
 }
 
@@ -41,7 +41,7 @@ export function extractTableCellsText(
   $: cheerio.CheerioAPI
 ): string[] {
   return $row
-    .find('td')
+    .find("td")
     .map((_: any, el: any) => $(el).text().trim())
     .get();
 }
@@ -60,11 +60,11 @@ export function extractProvinceFromRow(
   // Verify that it's actually a province (not dates or other headers)
   if (
     detectedProvince &&
-    !detectedProvince.includes('Fecha Actual') &&
-    !detectedProvince.includes('TOTAL') &&
-    !detectedProvince.includes('D.H.') &&
-    detectedProvince !== '' &&
-    detectedProvince !== '&nbsp'
+    !detectedProvince.includes("Fecha Actual") &&
+    !detectedProvince.includes("TOTAL") &&
+    !detectedProvince.includes("D.H.") &&
+    detectedProvince !== "" &&
+    detectedProvince !== "&nbsp"
   ) {
     return detectedProvince;
   }
@@ -78,7 +78,7 @@ export function extractProvinceFromRow(
  * @returns true if it's a reservoir data row
  */
 export function isReservoirDataRow($row: cheerio.Cheerio<AnyNode>): boolean {
-  const cells = $row.find('td');
+  const cells = $row.find("td");
   return cells.length >= 10; // A reservoir row has at least 10 columns
 }
 
@@ -94,10 +94,10 @@ export function extractProvinceTables(
     province: string;
     rows: cheerio.Cheerio<Element>[];
   }> = [];
-  let currentProvince = '';
+  let currentProvince = "";
   let currentRows: cheerio.Cheerio<Element>[] = [];
 
-  $('table tbody tr').each((_: any, row: any) => {
+  $("table tbody tr").each((_: any, row: any) => {
     const $row = $(row);
 
     // Try to extract province from the row
@@ -166,7 +166,7 @@ export function reservoirInfoFromTable(
  * @returns The parsed reservoir or null if it couldn't be processed
  */
 export function processReservoirRow(
-  $row: cheerio.Cheerio<AnyNode>[],
+  $row: cheerio.Cheerio<AnyNode>,
   $: cheerio.CheerioAPI,
   provincia: string
 ): EmbalsesAndalucia | null {
