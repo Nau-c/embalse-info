@@ -1,24 +1,34 @@
-import type { Embalse } from "db-model";
+import * as cheerio from 'cheerio';
+import { getCuencaPageHTMLContent } from '@/api';
+import { EmbalseUpdateSAIHEntity } from 'db-model';
+import {
+  extractCurrentDate,
+  extractProvinceTables,
+  reservoirInfoFromTable,
+} from '@/scraper/business';
+import { mapToEmbalseUpdateSAIH } from '@/scraper/mapper';
 
-export const getEstadoCuencaMediteranea = async (): Promise<Embalse[]> => {
-  return [
-    {
-      id: "1",
-      nombre: "Embalse de Iznájar",
-      provincia: "Córdoba",
-      capacidad: 981000000,
-      nivelActual: 750000000,
-      fechaUltimoNivel: new Date("2023-10-01"),
-      porcentajeLlenado: 76.5,
-    },
-    {
-      id: "2",
-      nombre: "Embalse de El Chorro",
-      provincia: "Málaga",
-      capacidad: 229000000,
-      nivelActual: 180000000,
-      fechaUltimoNivel: new Date("2023-10-01"),
-      porcentajeLlenado: 78.6,
-    },
-  ];
-};
+/**
+ * Scrapes Andalusian reservoir data and returns it as an array.
+ * @param url - The URL to scrape the data from
+ */
+export async function scrapeCuencaMediterranea(
+  url: string
+): Promise<EmbalseUpdateSAIHEntity[]> {
+  const html = await getCuencaPageHTMLContent(url);
+  const $: cheerio.CheerioAPI = cheerio.load(html);
+
+  // Extract tables organized by province
+  const provinceTables = extractProvinceTables($);
+
+  // Process each province table and flatten the results
+  const allReservoirs = provinceTables.flatMap((table) => {
+    return reservoirInfoFromTable(table.rows, table.province, $);
+  });
+
+  // Extract the current date from the page
+  const currentDate = extractCurrentDate($);
+
+  // Map to EmbalseUpdateSAIH format
+  return mapToEmbalseUpdateSAIH(allReservoirs, currentDate);
+}

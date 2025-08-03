@@ -1,5 +1,6 @@
-import { getEstadoCuencaMediteranea } from "./integration";
+import { scrapeCuencaMediterranea } from './integration';
 
-console.log("Estado de la Cuenca Mediterránea:");
-const result = await getEstadoCuencaMediteranea();
+const URL = 'https://www.redhidrosurmedioambiente.es/saih/resumen/embalses';
+console.log('Estado de la Cuenca Mediterránea:');
+const result = await scrapeCuencaMediterranea(URL);
 console.log(JSON.stringify(result, null, 2));

@@ -5,7 +5,13 @@
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/api/*": ["src/api/*"],
+      "@/scraper/*": ["src/scraper/*"]
+    }
   },
   "include": ["src"]
 }
