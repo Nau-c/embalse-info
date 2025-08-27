@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "front/src/app/api/claude/route.ts": {
+      "maxDuration": 30
+    }
+  },
+  "buildCommand": "cd front && npm run build"
+}
