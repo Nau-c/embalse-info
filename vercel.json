@@ -4,5 +4,8 @@
       "maxDuration": 30
     }
   },
-  "buildCommand": "cd front && npm run build"
+  "buildCommand": "cd front && npm ci && npm run build",
+  "installCommand": "npm ci",
+  "framework": null,
+  "outputDirectory": "front/.next"
 }
