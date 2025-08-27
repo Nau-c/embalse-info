@@ -1,0 +1,21 @@
+{
+  "name": "scraping-presas-canarias",
+  "version": "1.0.0",
+  "description": "Scraper para presas de Canarias",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/console-runner.ts",
+    "start": "node dist/console-runner.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "axios": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.8.3",
+    "tsx": "^4.20.3"
+  }
+} 

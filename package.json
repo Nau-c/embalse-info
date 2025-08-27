@@ -11,7 +11,11 @@
   "packageManager": "npm@10.0.0",
   "scripts": {
     "scripts": "tsx ./run-scripts",
-    "start": "npm run scripts -- start"
+    "start": "npm run scripts -- start",
+    "frontend": "cd front && npm start",
+    "server": "node simple-server.js",
+    "update-presas": "node update-presas.js",
+    "dev": "npm run update-presas"
   },
   "devDependencies": {
     "@types/prompts": "^2.4.9",
@@ -23,6 +27,7 @@
   },
   "dependencies": {
     "axios": "^1.10.0",
-    "cheerio": "^1.1.2"
+    "cheerio": "^1.1.2",
+    "express": "^4.21.2"
   }
 }
