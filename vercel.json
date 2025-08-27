@@ -1,11 +1,19 @@
 {
-  "functions": {
-    "front/src/app/api/claude/route.ts": {
-      "maxDuration": 30
+  "version": 2,
+  "name": "embalse-info",
+  "builds": [
+    {
+      "src": "front/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "distDir": ".next"
+      }
     }
-  },
-  "buildCommand": "cd front && npm ci && npm run build",
-  "installCommand": "npm ci",
-  "framework": null,
-  "outputDirectory": "front/.next"
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "front/$1"
+    }
+  ]
 }
