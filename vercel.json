@@ -1,19 +1,11 @@
 {
-  "version": 2,
-  "name": "embalse-info",
-  "builds": [
-    {
-      "src": "front/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "distDir": ".next"
-      }
+  "buildCommand": "cd front && npm run build",
+  "outputDirectory": "front/.next",
+  "installCommand": "cd front && npm install",
+  "framework": "nextjs",
+  "functions": {
+    "front/src/app/api/**/*.ts": {
+      "runtime": "nodejs18.x"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "front/$1"
-    }
-  ]
+  }
 }
