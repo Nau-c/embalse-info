@@ -1,11 +1,10 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install",
+  "buildCommand": "cd front && npm run build",
+  "outputDirectory": "front/.next",
+  "installCommand": "cd front && npm install",
   "framework": "nextjs",
-  "rootDirectory": "front",
   "functions": {
-    "src/app/api/**/*.ts": {
+    "front/src/app/api/**/*.ts": {
       "runtime": "nodejs18.x"
     }
   }
