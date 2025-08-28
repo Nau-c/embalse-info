@@ -2,15 +2,15 @@
 const nextConfig = {
   // Configuración básica para Vercel
   
-  // Configuración de TypeScript
+  // Configuración de TypeScript - Deshabilitar completamente la verificación
   typescript: {
-    // Ignorar errores de TypeScript durante el build en Vercel
+    // Ignorar completamente los errores de TypeScript durante el build
     ignoreBuildErrors: true,
   },
 
-  // Configuración de ESLint
+  // Configuración de ESLint - Deshabilitar completamente la verificación  
   eslint: {
-    // Ignorar errores de ESLint durante el build en Vercel
+    // Ignorar completamente los errores de ESLint durante el build
     ignoreDuringBuilds: true,
   },
 
