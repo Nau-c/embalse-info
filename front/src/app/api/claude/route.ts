@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
 
     if (!process.env.ANTHROPIC_API_KEY) {
       return NextResponse.json(
-        { error: 'API key de Anthropic no configurada' },
-        { status: 500 }
+        { error: 'Claude Chat no está configurado. La aplicación funciona perfectamente sin esta funcionalidad.' },
+        { status: 200 }
       );
     }
 

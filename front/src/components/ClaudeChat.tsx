@@ -30,7 +30,7 @@ const ClaudeChat: React.FC<ClaudeChatProps> = ({ presasData }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '¡Hola! Soy tu asistente especializado en presas canarias. Puedo ayudarte con información sobre las 72 presas de Gran Canaria. ¿Qué te gustaría saber?',
+      text: '¡Hola! Soy Claude, tu asistente de presas canarias. Actualmente estoy en modo demo - puedes usar el buscador principal para explorar los datos de las 72 presas de Gran Canaria. ¡Prueba buscar por nombre, cuenca o barranco!',
       isUser: false,
       timestamp: new Date()
     }
@@ -90,7 +90,7 @@ const ClaudeChat: React.FC<ClaudeChatProps> = ({ presasData }) => {
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Lo siento, hubo un error al procesar tu consulta. Por favor, asegúrate de que la API key de Claude esté configurada correctamente.',
+        text: 'Lo siento, Claude Chat no está configurado actualmente. Puedes usar el buscador y explorar los datos de las presas directamente en la página principal.',
         isUser: false,
         timestamp: new Date()
       };
@@ -108,10 +108,10 @@ const ClaudeChat: React.FC<ClaudeChatProps> = ({ presasData }) => {
   };
 
   const exampleQuestions = [
-    "¿Cuál es la presa más grande?",
-    "¿Cuántas presas hay en total?",
-    "¿Qué presas están en la cuenca del Guiniguada?",
-    "¿Cuál es la capacidad total de todas las presas?"
+    "Usa el buscador para encontrar presas",
+    "Explora las estadísticas en la página principal",
+    "Mira el Top 5 de presas por capacidad",
+    "Filtra por cuenca o barranco arriba"
   ];
 
   return (
