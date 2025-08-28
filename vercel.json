@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd front && npm run build",
+  "buildCommand": "cd front && npm run vercel-build",
   "outputDirectory": "front/.next",
   "installCommand": "cd front && npm install",
   "framework": "nextjs",
